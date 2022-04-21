@@ -50,6 +50,6 @@
     "build": "npm run !build:tsc",
     "start": "node ./$npm_package_config_dist",
     "start:dev": "cross-env NODE_ENV=development ts-node-dev -r tsconfig-paths/register -r dotenv/config ./$npm_package_config_src",
-    "changelog": "conventional-changelog -p angular -o CHANGELOG.md -s -r 0"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   }
 }
