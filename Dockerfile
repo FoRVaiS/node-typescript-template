@@ -6,6 +6,7 @@ COPY . /app
 RUN npm install
 RUN npm run build
 RUN rm -rf src
+RUN npm prune --production
 
 ENV NODE_ENV=PRODUCTION
 
