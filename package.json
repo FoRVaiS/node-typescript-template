@@ -44,6 +44,7 @@
     "commit": "git-cz",
     "lint": "eslint --ext ts $npm_package_config_src/",
     "lint:all": "eslint .",
+    "test": "jest",
     "!build:tsc": "rimraf $npm_package_config_dist && tsc -p tsconfig.release.json && tsc-alias -p tsconfig.release.json",
     "!build:docker": "docker build -t $npm_package_name:$npm_package_version .",
     "build": "npm run !build:tsc",
