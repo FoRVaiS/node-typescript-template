@@ -10,4 +10,4 @@ RUN npm prune --production
 
 ENV NODE_ENV=PRODUCTION
 
-CMD ["npm", "run-script", "!start:docker"]
+CMD ["npm", "run-script", "start"]
