@@ -5,7 +5,9 @@
   "author": "Ben Chiang <chiangbenjamin991@gmail.com>",
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "./node_modules/cz-conventional-changelog",
+      "maxHeaderWidth": 72,
+      "maxLineWidth": 72
     },
     "src": "src/",
     "dist": "build/"
