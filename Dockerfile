@@ -32,5 +32,6 @@ RUN chown -R node:node /app/build/*
 USER node
 COPY --chown=node:node package*.json yarn*.lock ./
 RUN npm ci --only=production && npm cache clean --force
+COPY --chown=node:node . .
 
 CMD ["node", "./build/index.js"]
