@@ -19,6 +19,7 @@
     "outDir": "build/",
     "sourceMap": true,
     "paths": {
+      "!types/*": ["src/types/*"],
       "!components/*": ["src/components/*"]
     }
   },
