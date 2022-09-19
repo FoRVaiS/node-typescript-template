@@ -27,6 +27,7 @@ RUN groupadd --gid 1000 node \
 
 FROM base as prod
 WORKDIR /app
+ENV NODE_ENV=production
 COPY --from=node /app/build /app/build
 RUN chown -R node:node /app/build/*
 USER node
