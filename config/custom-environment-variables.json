@@ -1,0 +1,7 @@
+
+{
+  "server": {
+    "address": "ADDRESS",
+    "port": "PORT"
+  }
+}
