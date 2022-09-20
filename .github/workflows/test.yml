@@ -1,0 +1,42 @@
+name: Test
+
+on:
+  pull_requests:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        name: Use Node.js
+        with:
+          node-version: 17.x
+          cache: "npm"
+      - run: npm ci
+      - run: npm run lint
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        name: Use Node.js
+        with:
+          node-version: 17.x
+          cache: "npm"
+      - run: npm ci
+      - run: npm run test
+  build:
+    needs: unit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        name: Use Node.js
+        with:
+          node-version: 17.x
+          cache: "npm"
+      - runs: npm run !build:tsc
+      
