@@ -17,8 +17,12 @@
     "noImplicitOverride": true,
     "rootDir": "src/",
     "outDir": "build/",
-    "sourceMap": true
+    "sourceMap": true,
+    "paths": {
+      "!types/*": ["src/types/*"],
+      "!components/*": ["src/components/*"]
+    }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "__tests__/**/*.ts"],
   "exclude": ["node_modules/"]
 }
