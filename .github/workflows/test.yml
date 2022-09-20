@@ -38,5 +38,5 @@ jobs:
         with:
           node-version: 17.x
           cache: "npm"
-      - runs: npm run !build:tsc
+      - run: npm run !build:tsc
       
