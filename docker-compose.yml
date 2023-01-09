@@ -13,10 +13,10 @@ services:
       - "0.0.0.0:8080:8080"
     tty: true
     networks:
-      - node-typescript-template-dev
+      - dev
 
 volumes:
   node-modules:
 
 networks:
-  node-typescript-template-dev:
+  dev:
