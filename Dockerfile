@@ -5,8 +5,7 @@ FROM node:16.14.2-slim as node
 FROM ubuntu:focal-20220404 as base
 RUN apt-get update \
     && apt-get -qq install -y --no-install-recommends \
-    tini \
-    && rm -rf /var/lib/apt/lists/*
+    tini
 
 # Copy node binaries and libraries
 COPY --from=node /usr/local/include/ /usr/local/include/
@@ -29,7 +28,6 @@ RUN npm ci --only=production && npm cache clean --force
 
 # Run development (assume bind mount)
 FROM base as dev
-USER node
 ENV NODE_ENV=development
 RUN npm install && npm cache clean --force
 
@@ -50,6 +48,7 @@ COPY --from=base --chown=node:node /app/node_modules/ /app/node_modules/
 
 # Run production
 FROM build as prod
+RUN rm -rf /var/lib/apt/lists/*
 USER node
 ENV NODE_ENV=production
 ENTRYPOINT ["/usr/bin/tini", "--"]
