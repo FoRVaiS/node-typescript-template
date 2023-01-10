@@ -33,11 +33,14 @@ USER node
 ENV NODE_ENV=development
 RUN npm install && npm cache clean --force
 
+# Copy the entire project into the container
+FROM base as source
+COPY --chown=node:node . .
+
 # Build the project
 # This project requires modules from dev dependencies as part of the build process
 # so we have to import node_modules from the dev stage
-FROM base as build
-COPY --chown=node:node . .
+FROM source as build
 COPY --from=dev --chown=node:node /app/node_modules/ /app/node_modules/
 RUN rm -rf build/ \
     && npx tsc -p tsconfig.release.json \
