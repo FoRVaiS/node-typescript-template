@@ -1,6 +1,6 @@
 {
-  "name": "node-typescript-template-devcontainer",
+  "name": "node-typescript-template-dev-container",
   "dockerComposeFile": "../docker-compose.yml",
-  "service": "node-typescript-template",
+  "service": "node-typescript-template-dev-container",
   "workspaceFolder": "/app"
 }
