@@ -24,7 +24,7 @@ EXPOSE 8080
 
 # Install production level dependencies
 COPY --chown=node:node package*.json yarn*.lock ./
-RUN npm ci --only=production && npm cache clean --force
+RUN npm install --omit=dev && npm cache clean --force
 
 # Run development (assume bind mount)
 FROM base as dev
