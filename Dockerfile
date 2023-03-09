@@ -29,6 +29,11 @@ RUN npm install --omit=dev && npm cache clean --force
 # Run development (assume bind mount)
 FROM base as dev
 ENV NODE_ENV=development
+RUN apt-get update \
+    && apt-get -qq install -y --no-install-recommends \
+    sudo \
+    && usermod -aG sudo node \
+    && echo "node ALL=(ALL:ALL) NOPASSWD: ALL" | sudo EDITOR='tee -a' visudo
 USER node
 RUN npm install && npm cache clean --force
 
