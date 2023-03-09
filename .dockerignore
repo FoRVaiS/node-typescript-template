@@ -1,12 +1,14 @@
-.devcontainer/
-.vscode/
+# Git
 .git/
+.gitignore
 
+# Node/Npm
 node_modules/
 
+# VSCode
+.vscode/
+.devcontainer/
+
+# Local Configuration/Environment
 .env
-.eslintrc.js
-.gitignore
-CHANGELOG.md
-README.md
-jest.config.js
+config/local-*
