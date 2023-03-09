@@ -29,6 +29,7 @@ RUN npm install --omit=dev && npm cache clean --force
 # Run development (assume bind mount)
 FROM base as dev
 ENV NODE_ENV=development
+USER node
 RUN npm install && npm cache clean --force
 
 # Copy the entire project into the container
@@ -42,14 +43,14 @@ FROM source as build
 COPY --from=dev --chown=node:node /app/node_modules/ /app/node_modules/
 RUN rm -rf build/ \
     && npx tsc -p tsconfig.release.json \
-    && npx tsc-alias -p tsconfig.release.json \ 
+    && npx tsc-alias -p tsconfig.release.json \
     && rm -rf node_modules/
 COPY --from=base --chown=node:node /app/node_modules/ /app/node_modules/
 
 # Run production
 FROM build as prod
 RUN rm -rf /var/lib/apt/lists/*
-USER node
 ENV NODE_ENV=production
+USER node
 ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["node", "./build"]
