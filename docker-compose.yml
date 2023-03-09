@@ -12,11 +12,6 @@ services:
     ports:
       - "0.0.0.0:8080:8080"
     tty: true
-    networks:
-      - dev
 
 volumes:
   node-modules:
-
-networks:
-  dev:
