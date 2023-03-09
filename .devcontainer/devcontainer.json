@@ -2,5 +2,6 @@
   "name": "node-typescript-template-dev-container",
   "dockerComposeFile": "../docker-compose.yml",
   "service": "node-typescript-template-dev-container",
-  "workspaceFolder": "/app"
+  "workspaceFolder": "/app",
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}"
 }

@@ -32,6 +32,9 @@ ENV NODE_ENV=development
 RUN apt-get update \
     && apt-get -qq install -y --no-install-recommends \
     sudo \
+    # Enables git integration in vscode.
+    # No git support for non-vscode users due to lack of SSH and GPG support in this particular project.
+    git \
     && usermod -aG sudo node \
     && echo "node ALL=(ALL:ALL) NOPASSWD: ALL" | sudo EDITOR='tee -a' visudo
 USER node
