@@ -5,25 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Production",
+      "name": "Debug Development",
       "request": "launch",
-      "envFile": "${workspaceFolder}/.env",
       "env": {
-        "NODE_ENV": "production"
+        "NODE_ENV": "development"
       },
-      "runtimeArgs": [
-        "run-script",
-        "start",
-      ],
-      "runtimeExecutable": "npm",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "type": "node"
-    },
-    {
-      "name": "Launch Development",
-      "request": "launch",
       "runtimeArgs": [
         "run-script",
         "start:dev"
