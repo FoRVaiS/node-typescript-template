@@ -38,10 +38,10 @@ module.exports = {
     jest: true,
     es2022: true,
   },
-  ignorePatterns: ['*.d.ts', 'node_modules/', 'build/'],
+  ignorePatterns: ['node_modules/', 'build/'],
   overrides: [
     {
-      files: ['*.ts'],
+      files: ['*.ts', '*.d.ts'],
       parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint/eslint-plugin'],
       extends: [
