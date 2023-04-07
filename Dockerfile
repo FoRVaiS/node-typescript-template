@@ -1,7 +1,7 @@
 # Thank you BretFisher
 # https://github.com/BretFisher/nodejs-rocks-in-docker
 
-FROM node:16.14.2-slim as node
+FROM node:18.15.0-slim as node
 FROM ubuntu:focal-20220404 as base
 RUN apt-get update \
     && apt-get -qq install -y --no-install-recommends \
