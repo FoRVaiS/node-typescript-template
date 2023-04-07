@@ -1,23 +1,20 @@
 {
-    "files.insertFinalNewline": true,
-    "files.trimTrailingWhitespace": true,
-    "files.trimFinalNewlines": true,
-
-    "typescript.tsdk": "node_modules/typescript/lib",
-
-    "eslint.format.enable": true,
-    "eslint.probe": [
-        "javascript",
-        "typescript",
-    ],
-    "eslint.run": "onSave",
-    "eslint.alwaysShowStatus": true,
-    "[javascript]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-    },
-
-    "jest.autoRevealOutput": "off",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "eslint.format.enable": true,
+  "eslint.probe": [
+    "javascript",
+    "typescript",
+  ],
+  "eslint.run": "onSave",
+  "eslint.alwaysShowStatus": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "jest.autoRevealOutput": "off",
 }
