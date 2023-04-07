@@ -26,19 +26,33 @@ EXPOSE 8080
 COPY --chown=node:node package*.json yarn*.lock ./
 RUN npm install --omit=dev && npm cache clean --force
 
-# Run development (assume bind mount)
+
+# Run development
 FROM base as dev
 ENV NODE_ENV=development
-RUN apt-get update \
-    && apt-get -qq install -y --no-install-recommends \
-    sudo \
-    # Enables git integration in vscode.
-    # No git support for non-vscode users due to lack of SSH and GPG support in this particular project.
-    git \
-    && usermod -aG sudo node \
-    && echo "node ALL=(ALL:ALL) NOPASSWD: ALL" | sudo EDITOR='tee -a' visudo
 USER node
 RUN npm install && npm cache clean --force
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["npm", "run", "start:dev"]
+
+
+# Run development container
+FROM dev as dev-container
+USER root
+RUN apt-get update \
+    && apt-get -qq upgrade -y --no-install-recommends \
+    # Enables git integration in vscode
+    # No git support for non-vscode users due to lack of SSH and GPG support in this particular project
+    git \
+    # Enables passwordless sudo in the dev container
+    sudo \
+    && usermod -aG sudo node \
+    && echo "node ALL=(ALL:ALL) NOPASSWD: ALL" | sudo EDITOR='tee -a' visudo \
+    && npm install -g npm-check-updates \
+    && npm cache clean --force
+USER node
+CMD ["bash"]
+
 
 # Copy the entire project into the container
 FROM base as source
