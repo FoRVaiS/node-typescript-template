@@ -1,7 +1,17 @@
 {
+  "editor.rulers": [
+    100
+  ],
   "files.insertFinalNewline": true,
+  // It can be useful to disable this setting if a trailing whitespaces have a use case.
   "files.trimTrailingWhitespace": true,
   "files.trimFinalNewlines": true,
+  "editor.renderFinalNewline": "dimmed",
+  "editor.unicodeHighlight.invisibleCharacters": true,
+  "[markdown]": {
+    // Markdown utilizes trailing whitespace to indicate a line break.
+    "files.trimTrailingWhitespace": false,
+  },
   "typescript.tsdk": "node_modules/typescript/lib",
   "eslint.format.enable": true,
   "eslint.probe": [
@@ -9,7 +19,6 @@
     "typescript",
   ],
   "eslint.run": "onSave",
-  "eslint.alwaysShowStatus": true,
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
