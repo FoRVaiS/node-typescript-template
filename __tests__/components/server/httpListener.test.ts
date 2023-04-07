@@ -31,4 +31,3 @@ it('should return 200 on the "healthz" route', () => {
   expect(response.writeHead).toBeCalledTimes(1);
   expect(response.writeHead).toBeCalledWith(200);
 });
-
