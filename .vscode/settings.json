@@ -19,7 +19,6 @@
     "typescript",
   ],
   "eslint.run": "onSave",
-  "eslint.alwaysShowStatus": true,
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
