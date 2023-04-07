@@ -35,9 +35,7 @@ module.exports = {
   env: {
     node: true,
     jest: true,
-  },
-  parserOptions: {
-    ecmaVersion: 12,
+    es2022: true,
   },
   ignorePatterns: ['*.d.ts', 'node_modules/', 'build/'],
   overrides: [
