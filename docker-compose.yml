@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: dev
+      target: dev-container
     image: node-typescript-template:dev-container
     container_name: node-typescript-template-dev-container
     volumes:
