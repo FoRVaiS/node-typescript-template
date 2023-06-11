@@ -38,6 +38,9 @@ jobs:
       - name: Import Docker image
         run: docker load < image.tar
 
+      - name: Install Node dependencies
+        run: docker run -v $PWD:/app forvais/node-typescript-template npm ci
+
       - name: Run Tests
         run: docker run -v $PWD:/app forvais/node-typescript-template npm run lint
   unit:
@@ -54,6 +57,9 @@ jobs:
 
       - name: Import Docker image
         run: docker load < image.tar
+
+      - name: Install Node dependencies
+        run: docker run -v $PWD:/app forvais/node-typescript-template npm ci
 
       - name: Run Tests
         run: docker run -v $PWD:/app forvais/node-typescript-template npm run test
@@ -72,6 +78,9 @@ jobs:
 
       - name: Import Docker image
         run: docker load < image.tar
+
+      - name: Install Node dependencies
+        run: docker run -v $PWD:/app forvais/node-typescript-template npm ci
 
       - name: Run Tests
         run: |
