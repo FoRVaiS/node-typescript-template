@@ -85,4 +85,4 @@ jobs:
       - name: Run health-check
         run: |
           docker run -d -v $PWD:/app -p 8080:8080 forvais/node-typescript-template
-          docker run forvais/node-typescript-template node scripts/health-check.js http://0.0.0.0:8080/healthz 10 5
+          docker run -v $PWD:/app forvais/node-typescript-template node scripts/health-check.js http://0.0.0.0:8080/healthz 10 5
