@@ -19,7 +19,7 @@ jobs:
         run: docker save forvais/node-typescript-template > image.tar
 
       - name: Upload Docker image artifact
-        uses: action/upload-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
           name: docker-image
           path: image.tar
