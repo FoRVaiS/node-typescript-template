@@ -41,7 +41,7 @@ jobs:
       - name: Install Node dependencies
         run: docker run -v $PWD:/app forvais/node-typescript-template npm ci
 
-      - name: Run Tests
+      - name: Lint source files
         run: docker run -v $PWD:/app forvais/node-typescript-template npm run lint
   unit:
     needs: build
@@ -61,7 +61,7 @@ jobs:
       - name: Install Node dependencies
         run: docker run -v $PWD:/app forvais/node-typescript-template npm ci
 
-      - name: Run Tests
+      - name: Run unit tests
         run: docker run -v $PWD:/app forvais/node-typescript-template npm run test
 
   health-check:
