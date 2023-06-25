@@ -84,5 +84,5 @@ jobs:
 
       - name: Run health-check
         run: |
-          docker run -d -v $PWD:/app -p 8080:8080 forvais/node-typescript-template --name api
+          docker run -d -v $PWD:/app -p 8080:8080 --name api forvais/node-typescript-template
           docker exec -it api node scripts/health-check.js http://0.0.0.0:8080/healthz 10 5
