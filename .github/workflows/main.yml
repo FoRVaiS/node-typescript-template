@@ -22,25 +22,12 @@ jobs:
           name: docker-image
           path: image.tar
 
-      - name: Install node modules
-        run: docker run -v $PWD:/app forvais/node-typescript-template npm ci
-
-      - name: Upload node modules artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: node-modules
-          path: node_modules/
   lint:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Download node modules
-        uses: actions/download-artifact@v3
-        with:
-          name: node-modules
 
       - name: Download Docker image
         uses: actions/download-artifact@v3
@@ -49,6 +36,12 @@ jobs:
 
       - name: Import Docker image
         run: docker load < image.tar
+
+      - name: Export node modules from container
+        run: |
+          id=$(docker create forvais/node-typescript-template)
+          docker cp $id:/app/node_modules ./node_modules
+          docker rm -v $id
 
       - name: Lint source files
         run: docker run -v $PWD:/app forvais/node-typescript-template npm run lint
@@ -59,11 +52,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Download node modules
-        uses: actions/download-artifact@v3
-        with:
-          name: node-modules
-
       - name: Download Docker image
         uses: actions/download-artifact@v3
         with:
@@ -71,6 +59,12 @@ jobs:
 
       - name: Import Docker image
         run: docker load < image.tar
+
+      - name: Export node modules from container
+        run: |
+          id=$(docker create forvais/node-typescript-template)
+          docker cp $id:/app/node_modules ./node_modules
+          docker rm -v $id
 
       - name: Run unit tests
         run: docker run -v $PWD:/app forvais/node-typescript-template npm run test
@@ -94,6 +88,12 @@ jobs:
 
       - name: Import Docker image
         run: docker load < image.tar
+
+      - name: Export node modules from container
+        run: |
+          id=$(docker create forvais/node-typescript-template)
+          docker cp $id:/app/node_modules ./node_modules
+          docker rm -v $id
 
       - name: Run health-check
         run: |
