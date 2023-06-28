@@ -47,6 +47,7 @@ jobs:
         with:
           context: .
           target: ${{ matrix.environment }}
+          load: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
         env:
