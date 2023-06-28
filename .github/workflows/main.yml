@@ -17,15 +17,23 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: ~/.npm
 
-      - name: Cache node modules
-        uses: actions/cache@v3
+      - name: Restore npm cache
+        id: npm-cache-restore
+        uses: actions/cache/restore@v3
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Save npm cache
+        uses: actions/cache/save@v3
+        with:
+          path: ~/.npm
+          key: ${{ steps.npm-cache-restore.outputss.cache-primary-key }}
 
       - name: Run ${{ matrix.job }} tasks
         run: npm run ${{ matrix.job }}
