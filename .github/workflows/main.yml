@@ -4,70 +4,52 @@ on:
       - main
 
 jobs:
-  build:
+  prepare:
+    setup:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm ci
+
+  code-quality:
+    needs: prepare
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        job: [lint, test]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build image
-        run: docker build -t forvais/node-typescript-template --target dev .
-
-      - name: Save Docker image
-        run: docker save forvais/node-typescript-template > image.tar
-
-      - name: Upload Docker image artifact
-        uses: actions/upload-artifact@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
-          name: docker-image
-          path: image.tar
+          node-version: 18
 
-  lint:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Download Docker image
-        uses: actions/download-artifact@v3
+      - name: Cache node modules
+        uses: actions/cache@v3
         with:
-          name: docker-image
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Import Docker image
-        run: docker load < image.tar
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Export node modules from container
-        run: |
-          id=$(docker create forvais/node-typescript-template)
-          docker cp $id:/app/node_modules ./node_modules
-          docker rm -v $id
-
-      - name: Lint source files
-        run: docker run -v $PWD:/app forvais/node-typescript-template npm run lint
-  unit:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Download Docker image
-        uses: actions/download-artifact@v3
-        with:
-          name: docker-image
-
-      - name: Import Docker image
-        run: docker load < image.tar
-
-      - name: Export node modules from container
-        run: |
-          id=$(docker create forvais/node-typescript-template)
-          docker cp $id:/app/node_modules ./node_modules
-          docker rm -v $id
-
-      - name: Run unit tests
-        run: docker run -v $PWD:/app forvais/node-typescript-template npm run test
+      - name: Run ${{ matrix.job }} tasks
+        run: npm run ${{ matrix.job }}
 
   health-check:
     needs: unit
@@ -76,21 +58,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Download Docker image
-        uses: actions/download-artifact@v3
-        with:
-          name: docker-image
-
-      - name: Import Docker image
-        run: docker load < image.tar
-
-      - name: Export node modules from container
-        run: |
-          id=$(docker create forvais/node-typescript-template)
-          docker cp $id:/app/node_modules ./node_modules
-          docker rm -v $id
+      - name: Build image
+        run: docker build -t node-typescript-template --target dev .
 
       - name: Run health-check
         run: |
-          docker run -d -v $PWD:/app -p 8080:8080 --name api forvais/node-typescript-template
+          docker run -d -v $PWD:/app -p 8080:8080 --name api node-typescript-template
           docker exec api node scripts/health-check.js http://0.0.0.0:8080/healthz 10 5
