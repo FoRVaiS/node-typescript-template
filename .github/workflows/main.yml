@@ -31,7 +31,7 @@ jobs:
         run: npm run ${{ matrix.job }}
 
   health-check:
-    needs: unit
+    needs: code-quality
     runs-on: ubuntu-latest
     strategy:
       matrix:
