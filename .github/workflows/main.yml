@@ -47,6 +47,12 @@ jobs:
         env:
           DOCKER_BUILDKIT: 1
 
+      - uses: docker/build-push-action@v2
+        with:
+          context: .
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
       - run: docker create -p 8080:8080 --name api node-typescript-template
 
       - name: Import project files into container
