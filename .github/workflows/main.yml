@@ -47,7 +47,7 @@ jobs:
         uses: ./.github/actions/import-from-container
         if: matrix.environment == 'dev'
         with:
-          image: node-typescript-template:${{ matrix.environment }}
+          image: node-typescript-template
           src: /app/node_modules
           dest: ./node_modules
 
