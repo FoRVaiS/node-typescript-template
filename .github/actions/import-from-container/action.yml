@@ -1,0 +1,22 @@
+name: Import Files from Image
+
+inputs:
+  image:
+    type: string
+    required: true
+  src:
+    type: string
+    required: true
+  dest:
+    type: string
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Import files from container
+      run: |
+        id=$(docker create ${{ inputs.image }})
+        docker cp $id:${{ inputs.src }} ${{ inputs.dest }}
+        docker rm -v $id
+      shell: bash

@@ -43,7 +43,21 @@ jobs:
       - name: Build image
         run: docker build -t node-typescript-template --target ${{ matrix.environment }} .
 
+      - name: Import node_modules from image
+        uses: ./.github/actions/export-from-container
+        if: matrix.environment == 'dev'
+        with:
+          image: node-typescript-template:${{ matrix.environment }}
+          src: /app/node_modules
+          dest: ./node_modules
+
+      - name: Start container with binded workspace
+        if: matrix.environment == 'dev'
+        run: docker run -d -v $PWD:/app -p 8080:8080 --name api node-typescript-template
+
+      - name: Start container
+        if: matrix.environment != 'dev'
+        run: docker run -d -p 8080:8080 --name api node-typescript-template
+
       - name: Run health-check
-        run: |
-          docker run -d -v $PWD:/app -p 8080:8080 --name api node-typescript-template
-          docker exec api node scripts/health-check.js http://0.0.0.0:8080/healthz 10 5
+        run: docker exec api node scripts/health-check.js http://0.0.0.0:8080/healthz 10 5
