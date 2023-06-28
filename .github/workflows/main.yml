@@ -45,7 +45,7 @@ jobs:
       - uses: docker/build-push-action@v2
         with:
           context: .
-          tags: node-typescript-template
+          tags: node-typescript-template:latest
           target: ${{ matrix.environment }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
