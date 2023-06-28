@@ -77,6 +77,7 @@ COPY --from=base --chown=${USER}:${USER} ${WORKSPACE}/node_modules/ ${WORKSPACE}
 
 # Run production
 FROM build as prod
+USER root
 RUN rm -rf /var/lib/apt/lists/*
 ENV NODE_ENV=production
 USER ${USER}
