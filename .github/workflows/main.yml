@@ -44,7 +44,7 @@ jobs:
         run: docker build -t node-typescript-template --target ${{ matrix.environment }} .
 
       - name: Import node_modules from image
-        uses: ./.github/actions/export-from-container
+        uses: ./.github/actions/import-from-container
         if: matrix.environment == 'dev'
         with:
           image: node-typescript-template:${{ matrix.environment }}
