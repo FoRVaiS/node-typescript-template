@@ -4,28 +4,7 @@ on:
       - main
 
 jobs:
-  prepare:
-    setup:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'npm'
-
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install dependencies
-        run: npm ci
-
   code-quality:
-    needs: prepare
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -54,12 +33,15 @@ jobs:
   health-check:
     needs: unit
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [prod, dev]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Build image
-        run: docker build -t node-typescript-template --target dev .
+        run: docker build -t node-typescript-template --target ${{ matrix.environment }} .
 
       - name: Run health-check
         run: |
