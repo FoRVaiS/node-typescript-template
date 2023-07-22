@@ -1,39 +1,38 @@
+x-common-properties: &common
+  ports:
+    - 0.0.0.0:8080:8080
+
+x-dev-properties: &dev
+  volumes:
+    - .:/app
+    - node-modules:/app/node_modules
+
 services:
   prod:
+    <<:
+      - *common
     build:
-      context: .
-      dockerfile: Dockerfile
       target: prod
     image: node-typescript-template:latest
     container_name: node-typescript-template
-    ports:
-      - "0.0.0.0:8080:8080"
 
   dev:
+    <<:
+      - *common
+      - *dev
     build:
-      context: .
-      dockerfile: Dockerfile
       target: dev
     image: node-typescript-template:dev
     container_name: node-typescript-template-dev
-    volumes:
-      - .:/app
-      - node-modules:/app/node_modules
-    ports:
-      - "0.0.0.0:8080:8080"
 
   dev-container:
+    <<:
+      - *common
+      - *dev
     build:
-      context: .
-      dockerfile: Dockerfile
       target: dev-container
     image: node-typescript-template:dev-container
     container_name: node-typescript-template-dev-container
-    volumes:
-      - .:/app
-      - node-modules:/app/node_modules
-    ports:
-      - "0.0.0.0:8080:8080"
     tty: true
 
 volumes:
