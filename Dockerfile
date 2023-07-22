@@ -2,7 +2,7 @@
 # https://github.com/BretFisher/nodejs-rocks-in-docker
 
 FROM node:18.17.0-slim as node
-FROM ubuntu:focal-20220404 as base
+FROM ubuntu:jammy-20230624 as base
 
 ARG USER=node
 ARG WORKSPACE=/app
