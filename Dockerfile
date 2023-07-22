@@ -1,7 +1,7 @@
 # Thank you BretFisher
 # https://github.com/BretFisher/nodejs-rocks-in-docker
 
-FROM node:18.15.0-slim as node
+FROM node:18.17.0-slim as node
 FROM ubuntu:focal-20220404 as base
 
 ARG USER=node
