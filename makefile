@@ -12,10 +12,10 @@ run:
 	$(COMPOSE) run -it --rm --service-ports $(STAGE)
 
 env:
-	@make run STAGE=node-typescript-template-dev-container
+	@make run STAGE=dev-container
 
 dev:
-	@make run STAGE=node-typescript-template-dev
+	@make run STAGE=dev
 
 prod:
-	@make run STAGE=node-typescript-template-prod
+	@make run STAGE=prod
