@@ -50,5 +50,8 @@
     "start": "node ./$npm_package_config_dist",
     "start:dev": "ts-node-dev --respawn -r tsconfig-paths/register -r dotenv/config ./$npm_package_config_src",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+  },
+  "engines": {
+    "node": "^18.0.0"
   }
 }
