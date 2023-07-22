@@ -1,5 +1,28 @@
 services:
-  node-typescript-template-dev-container:
+  prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod
+    image: node-typescript-template:latest
+    container_name: node-typescript-template
+    ports:
+      - "0.0.0.0:8080:8080"
+
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    image: node-typescript-template:dev
+    container_name: node-typescript-template-dev
+    volumes:
+      - .:/app
+      - node-modules:/app/node_modules
+    ports:
+      - "0.0.0.0:8080:8080"
+
+  dev-container:
     build:
       context: .
       dockerfile: Dockerfile
