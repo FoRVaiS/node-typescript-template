@@ -48,8 +48,8 @@ jobs:
           context: .
           target: ${{ matrix.environment }}
           load: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=${{ github.repository }}
+          cache-to: type=gha,mode=max,scope=${{ github.repository }}
 
       - run: docker create -p 8080:8080 --name api ${{ steps.image-builder.outputs.imageid }}
 
